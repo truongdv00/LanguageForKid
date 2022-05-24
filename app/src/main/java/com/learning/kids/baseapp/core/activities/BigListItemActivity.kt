@@ -27,32 +27,67 @@ import android.view.animation.LinearInterpolator
 import android.view.animation.Animation
 
 import android.view.animation.RotateAnimation
-
-
-
+import android.widget.Toast
+import com.learning.kids.baseapp.api.ApiInterface
+import com.learning.kids.baseapp.api.RetrofitInstance
+import com.learning.kids.baseapp.api.SessionManager
+import com.learning.kids.baseapp.data.models.BigListResponse
+import com.learning.kids.baseapp.data.models.DataBigList
+import com.learning.kids.baseapp.data.models.LoginResponse
+import jp.co.dev.android.util.DialogUtil
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class BigListItemActivity: AppCompatActivity() {
     private var recyclerview: RecyclerView? = null
     private var gridLayoutManager: GridLayoutManager? = null
-    private var arrayList: ArrayList<DataFollow>? = null
+    private var arrayList: ArrayList<DataBigList>? = null
     private var bigListAdapter: BigListFollowAdapter? = null
     private var db:MyDatabase? = null
     var tvtitle: TextView? = null
     var context: Context? = null
     var key: String? = null
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_big_list_follow)
+        sessionManager = SessionManager(this)
         recyclerview = findViewById(R.id.listFollow)
         tvtitle = findViewById(R.id.txt_title)
         this.context = context
-        db = MyDatabase(this)
-        arrayList = db?.getAllItemsBigList()
+//        db = MyDatabase(this)
         initView()
         initRecyclerview()
         onClick()
+    }
+
+    private fun getData() {
+        val retIn = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
+        retIn.getListTopPic("${sessionManager.fetchAuthToken()}").enqueue(object:
+            Callback<BigListResponse> {
+            override fun onFailure(call: Call<BigListResponse>, t: Throwable) {
+                DialogUtil.progressDlgHide()
+                Toast.makeText(
+                    this@BigListItemActivity,
+                    t.message,
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            override fun onResponse(call: Call<BigListResponse>, response: Response<BigListResponse>) {
+                if (response.body()?.code == 200) {
+                    Log.d("TruongDV19", "oke"+ response.body()?.result!!.data[0].name)
+                     arrayList = response.body()?.result!!.data
+                }
+                else{
+                    Toast.makeText(this@BigListItemActivity, "Login failed!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+        })
     }
 
     private fun onClick() {

@@ -27,11 +27,10 @@ import com.learning.kids.baseapp.core.custom.AudioManager
 import com.learning.kids.baseapp.data.Constants
 import com.learning.kids.baseapp.data.models.DataFollow
 import android.view.animation.AnimationSet
+import com.learning.kids.baseapp.data.models.DataBigList
 
 
-
-
-class BigListFollowAdapter(var context: Context, var arrayList: ArrayList<DataFollow>, var mContext: BigListItemActivity) :
+class BigListFollowAdapter(var context: Context, var arrayList: ArrayList<DataBigList>, var mContext: BigListItemActivity) :
     RecyclerView.Adapter<BigListFollowAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemHolder = LayoutInflater.from(parent.context)
@@ -40,25 +39,25 @@ class BigListFollowAdapter(var context: Context, var arrayList: ArrayList<DataFo
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var dataFollow: DataFollow = arrayList[position]
-        getImageId(dataFollow.img_content, context)?.let { holder.content.setImageResource(it) }
+        var dataBigList: DataBigList = arrayList[position]
+        getImageId(dataBigList.image, context)?.let { holder.content.setImageResource(it) }
         setAnimation(holder.itemView)
-        holder.title.text = dataFollow.title
+        holder.title.text = dataBigList.name
         holder.itemView.setOnClickListener {
-            var audioManager = AudioManager(context, dataFollow.sound)
+            var audioManager = AudioManager(context, dataBigList.sound)
             audioManager.startSound()
             setAnimation(holder.itemView)
             if (mContext.tvtitle?.text == Constants.SWIPE) {
                 Handler(Looper.getMainLooper()).postDelayed({
                     val intent = Intent(context, SwipeReadActivity::class.java)
-                    intent.putExtra(Constants.KEY_DETAIL, dataFollow.title)
+                    intent.putExtra(Constants.KEY_DETAIL, dataBigList.name)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     context.startActivity(intent)
                 }, 1500)
             } else {
                 Handler(Looper.getMainLooper()).postDelayed({
                     val intent = Intent(context, DetailBigListItemActivity::class.java)
-                    intent.putExtra(Constants.KEY_DETAIL, dataFollow.title)
+                    intent.putExtra(Constants.KEY_DETAIL, dataBigList.name)
                     intent.putExtra(Constants.KEY_FOLLOW, mContext.key)
                     intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     context.startActivity(intent)

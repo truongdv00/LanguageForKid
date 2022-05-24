@@ -10,6 +10,7 @@ import com.learning.kids.baseapp.MainActivity
 import com.learning.kids.baseapp.R
 import com.learning.kids.baseapp.core.activities.BigListItemActivity
 import com.learning.kids.baseapp.core.activities.HomeScreenActivity
+import com.learning.kids.baseapp.core.activities.LoginActivity
 
 import com.learning.kids.baseapp.core.activities.SwipeReadActivity
 import com.learning.kids.baseapp.core.custom.AudioManager
@@ -22,7 +23,7 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ac_splash)
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, HomeScreenActivity::class.java))
+            startActivity(Intent(this, LoginActivity::class.java))
         }, 2000)
 }
 
