@@ -84,22 +84,70 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/title"
                             android:layout_marginHorizontal="35dp"
-                            android:layout_marginTop="16dp"
+                            android:layout_marginTop="10dp"
                             android:gravity="center"
                             android:includeFontPadding="false"
                             android:text="Học nói tiếng việt"
                             android:textColor="#000"
                             android:textFontWeight="400"
                             android:textSize="14sp" />
+
                         <TextView
-                            android:id="@+id/User"
+                            android:id="@+id/name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/description"
                             android:layout_marginLeft="24dp"
                             android:layout_marginTop="15dp"
                             android:includeFontPadding="false"
-                            android:text="User Name"
+                            android:text="Tên Người Dùng"
+                            android:textColor="#000"
+                            android:textFontWeight="700"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                        <LinearLayout
+                            android:id="@+id/lnName"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:layout_below="@id/name"
+                            android:layout_marginHorizontal="24dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@drawable/border_edittext">
+
+                            <ImageView
+                                android:id="@+id/imgName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="18dp"
+                                android:src="@drawable/user" />
+
+                            <EditText
+                                android:id="@+id/edtName"
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:layout_below="@id/email"
+                                android:layout_marginLeft="10dp"
+                                android:background="@null"
+                                android:hint="Name"
+                                android:imeOptions="actionNext"
+                                android:inputType="textWebEmailAddress|textEmailAddress"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:textColorHint="#B6B3B3"
+                                android:textSize="14dp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/User"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/lnName"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginTop="5dp"
+                            android:includeFontPadding="false"
+                            android:text="Tên Đăng Nhập"
                             android:textColor="#000"
                             android:textFontWeight="700"
                             android:textSize="14sp"
@@ -144,7 +192,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@id/lnUser"
                             android:layout_marginLeft="24dp"
-                            android:layout_marginTop="15dp"
+                            android:layout_marginTop="5dp"
                             android:includeFontPadding="false"
                             android:text="Email"
                             android:textColor="#000"
@@ -270,7 +318,7 @@
                             android:layout_below="@id/errPass"
                             android:layout_centerInParent="true"
                             android:layout_marginHorizontal="25dp"
-                            android:layout_marginTop="40dp"
+                            android:layout_marginTop="25dp"
                             android:background="@drawable/btn"
                             android:includeFontPadding="false"
                             android:text="ĐĂNG KÝ"
@@ -285,7 +333,6 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/btnRegister"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="10dp"
                             android:gravity="center"
                             android:paddingTop="10dp"
                             android:paddingBottom="10dp"

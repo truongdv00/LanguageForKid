@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import com.learning.kids.baseapp.MainActivity
 import com.learning.kids.baseapp.R
+import com.learning.kids.baseapp.api.SessionManager
 import com.learning.kids.baseapp.core.activities.BigListItemActivity
 import com.learning.kids.baseapp.core.activities.HomeScreenActivity
 import com.learning.kids.baseapp.core.activities.LoginActivity
@@ -18,12 +19,18 @@ import kotlinx.android.synthetic.main.ac_splash.*
 
 
 class SplashActivity : AppCompatActivity() {
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.ac_splash)
+        sessionManager = SessionManager(this)
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this, LoginActivity::class.java))
+            if (sessionManager.fetchAuthToken() != ""&& sessionManager.fetchAuthToken() != null) {
+                startActivity(Intent(this, HomeScreenActivity::class.java))
+            } else {
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
         }, 2000)
 }
 

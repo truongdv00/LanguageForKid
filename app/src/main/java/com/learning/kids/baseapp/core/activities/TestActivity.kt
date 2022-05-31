@@ -15,6 +15,7 @@ import com.learning.kids.baseapp.core.custom.AudioManager
 import com.learning.kids.baseapp.data.database.MyDatabase
 import com.learning.kids.baseapp.data.models.DataAlphabetFollow
 import com.learning.kids.baseapp.data.models.DataQuiz
+import jp.co.dev.android.util.DialogUtil
 import kotlinx.android.synthetic.main.activity_detail_big_list_follow.btn_back
 import kotlinx.android.synthetic.main.activity_test.*
 
@@ -29,6 +30,7 @@ class TestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
+        DialogUtil.progressDlgHide()
         db = MyDatabase(this)
         onClick()
         setListQuiz()
