@@ -7,10 +7,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiInterface {
 
@@ -22,6 +19,9 @@ interface ApiInterface {
 
     @GET(Constants.LIST_TOP_PIC_URL)
     fun getListTopPic(@Header("x_authorization") token: String): Call<BigListResponse>
+
+    @GET(Constants.USER_INFO_URL)
+    fun getUserInfo(@Header("x_authorization") token: String, @Query("username") userName: String): Call<UserResponse>
 
 }
 class RetrofitInstance {

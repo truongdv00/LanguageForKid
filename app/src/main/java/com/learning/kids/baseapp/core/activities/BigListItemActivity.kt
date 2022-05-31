@@ -43,9 +43,7 @@ import retrofit2.Response
 class BigListItemActivity: AppCompatActivity() {
     private var recyclerview: RecyclerView? = null
     private var gridLayoutManager: GridLayoutManager? = null
-    private var arrayList: ArrayList<DataBigList>? = null
     private var bigListAdapter: BigListFollowAdapter? = null
-    private var db:MyDatabase? = null
     var tvtitle: TextView? = null
     var context: Context? = null
     var key: String? = null
@@ -55,12 +53,11 @@ class BigListItemActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_big_list_follow)
         sessionManager = SessionManager(this)
+        getData()
         recyclerview = findViewById(R.id.listFollow)
         tvtitle = findViewById(R.id.txt_title)
         this.context = context
-//        db = MyDatabase(this)
         initView()
-        initRecyclerview()
         onClick()
     }
 
@@ -78,11 +75,10 @@ class BigListItemActivity: AppCompatActivity() {
             }
             override fun onResponse(call: Call<BigListResponse>, response: Response<BigListResponse>) {
                 if (response.body()?.code == 200) {
-                    Log.d("TruongDV19", "oke"+ response.body()?.result!!.data[0].name)
-                     arrayList = response.body()?.result!!.data
+                    initRecyclerview(response.body()?.result!!.data)
                 }
                 else{
-                    Toast.makeText(this@BigListItemActivity, "Login failed!", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@BigListItemActivity, "Kết Nối Gặp Sự Cố! Vui Lòng Kiểm Tra Lại", Toast.LENGTH_SHORT)
                         .show()
                 }
             }
@@ -103,12 +99,13 @@ class BigListItemActivity: AppCompatActivity() {
         txt_title.text = title
     }
 
-    private fun initRecyclerview() {
+    private fun initRecyclerview(arrayList: ArrayList<DataBigList>) {
         gridLayoutManager = GridLayoutManager(applicationContext, 2, LinearLayoutManager.VERTICAL, false)
         recyclerview?.layoutManager = gridLayoutManager
         recyclerview?.setHasFixedSize(true)
-        bigListAdapter = BigListFollowAdapter(applicationContext, arrayList!!, this)
+        bigListAdapter = BigListFollowAdapter(applicationContext, arrayList, this)
         recyclerview?.adapter = bigListAdapter
+        DialogUtil.progressDlgHide()
     }
     
 }

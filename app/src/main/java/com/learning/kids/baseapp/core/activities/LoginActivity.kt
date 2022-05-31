@@ -41,7 +41,7 @@ class LoginActivity : AppCompatActivity() {
         }
         btnLogin.setOnClickListener {
             if (edtUserName.text.toString() != "" && edtPassWord.text.toString() != "") {
-                DialogUtil.progressDlgShow(this, "Loading...")
+                DialogUtil.progressDlgShow(this, "Chờ xíu...")
                 doLogin(edtUserName.text.toString(), edtPassWord.text.toString())
             } else {
                 Toast.makeText(this, "Vui Lòng Nhập Đầy Đủ Thông Tin", Toast.LENGTH_SHORT).show()
@@ -67,13 +67,14 @@ class LoginActivity : AppCompatActivity() {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.body()?.code == 200) {
                     sessionManager.saveAuthToken(response.body()?.result!!.accessToken)
+                    sessionManager.saveUserName(response.body()?.result!!.username)
+                    Log.d("TruongDV19", sessionManager.fetchAuthUserName().toString())
                     val intent = Intent(this@LoginActivity, HomeScreenActivity::class.java)
                     startActivity(intent)
-                    DialogUtil.progressDlgHide()
                 }
                 else{
                     DialogUtil.progressDlgHide()
-                    Toast.makeText(this@LoginActivity, "Login failed!", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@LoginActivity, "Đăng Nhập Không Thành Công! \nVui Lòng Kiểm Tra Lại Thông Tin Tài Khoản", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

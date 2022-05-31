@@ -26,9 +26,9 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun onClick() {
         btnRegister.setOnClickListener {
-            if (edtEmail.text.toString() != "" && edtPass.text.toString() != "" && edtUser.text.toString() != "") {
-                DialogUtil.progressDlgShow(this, "Loading...")
-                doSignUp(edtEmail.text.toString(), edtUser.text.toString(), edtPass.text.toString())
+            if (edtEmail.text.toString() != "" && edtPass.text.toString() != "" && edtUser.text.toString() != "" && edtName.text.toString() != "") {
+                DialogUtil.progressDlgShow(this, "Chờ xíu...")
+                doSignUp(edtEmail.text.toString(), edtUser.text.toString(), edtPass.text.toString(), edtName.text.toString())
             } else {
                 Toast.makeText(this, "Vui Lòng Nhập Đầy Đủ Thông Tin", Toast.LENGTH_SHORT).show()
             }
@@ -40,9 +40,9 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun doSignUp(email: String, username: String,
-                         password: String){
+                         password: String, name: String){
         val retIn = RetrofitInstance.getRetrofitInstance().create(ApiInterface::class.java)
-        val registerInfo = RegisterRequest(email = email, username = username , password = password)
+        val registerInfo = RegisterRequest(email = email, username = username , password = password, name = name)
 
         retIn.signUp(registerInfo).enqueue(object :
             Callback<LoginResponse> {
@@ -62,7 +62,7 @@ class RegisterActivity : AppCompatActivity() {
                 }
                 else{
                     DialogUtil.progressDlgHide()
-                    Toast.makeText(this@RegisterActivity, "Registration failed!", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@RegisterActivity, "Thành Phần Thông Tin Đã Tồn Tại! \nVui Lòng Kiểm Tra Lại", Toast.LENGTH_SHORT)
                         .show()
                 }
             }

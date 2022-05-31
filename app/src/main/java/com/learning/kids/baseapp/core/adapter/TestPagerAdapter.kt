@@ -1,5 +1,6 @@
 package com.learning.kids.baseapp.core.adapter
 
+import android.animation.ValueAnimator
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
@@ -19,8 +20,7 @@ import com.learning.kids.baseapp.data.Constants
 import com.learning.kids.baseapp.data.models.DataQuiz
 import java.time.LocalDate
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-
-
+import kotlinx.android.synthetic.main.activity_test.*
 
 
 class TestPagerAdapter(var list: ArrayList<DataQuiz>, var context: Context, var mContext: TestActivity): PagerAdapter() {
@@ -94,9 +94,24 @@ class TestPagerAdapter(var list: ArrayList<DataQuiz>, var context: Context, var 
         ans = list[position].ans.split("sounds_".toRegex())[1]
         if (choose == ans) {
             playSoundCorrect()
+            mContext.icon_answer.setImageResource(R.drawable.correct)
+            setAnimation(mContext.icon_answer)
         } else {
             playSoundInCorrect()
+            mContext.icon_answer.setImageResource(R.drawable.incorrect)
+            setAnimation(mContext.icon_answer)
         }
+    }
+    private fun setAnimation(itemView: View) {
+        val anim = ValueAnimator.ofFloat(0f, 1f)
+        anim.duration = 600
+        anim.addUpdateListener { animation ->
+            itemView.scaleX = animation.animatedValue as Float
+            itemView.scaleY = animation.animatedValue as Float
+        }
+        anim.repeatCount = 1
+        anim.repeatMode = ValueAnimator.REVERSE
+        anim.start()
     }
 
 }

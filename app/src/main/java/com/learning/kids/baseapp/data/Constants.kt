@@ -27,9 +27,10 @@ class Constants{
         const val KEY_HOME = "keyy"
         const val KEY_HOME_FOLLOW = "key_follow"
         const val KEY_FOLLOW = "keyy_follow"
-        const val BASE_URL = "http://192.168.0.11:3001/api/v1/"
+        const val BASE_URL = "http://192.168.69.106:3001/api/v1/"
         const val SIGNUP_URL = "user/register"
         const val LOGIN_URL = "user/login"
         const val LIST_TOP_PIC_URL = "big-list"
+        const val USER_INFO_URL = "user/info"
     }
 }

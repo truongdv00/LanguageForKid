@@ -10,5 +10,8 @@ data class RegisterRequest(
     var password: String,
 
     @SerializedName("username")
-    var username: String
+    var username: String,
+
+    @SerializedName("name")
+    var name: String
 )
