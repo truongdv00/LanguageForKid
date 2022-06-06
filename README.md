@@ -20,7 +20,7 @@ This App is common Modules and libraries i use in my apps, i decided to make it 
 
 
 ## Requirements
-- min SDK 21
+This application is for children to learn Vietnamese with pictures and sounds
 
 
 ## Implementation
@@ -50,6 +50,5 @@ We use the Architecture Components library to instantiate our ViewModel in order
 ##Contributing
 For new features, please open an issue to discuss it before beginning implementation.
 
-##For any question
-- you can contact me on my email: ashraaf.mahmoud@gmail.com
+
 
